@@ -1,6 +1,4 @@
 defmodule StatsD.Application do
-  # See http://elixir-lang.org/docs/stable/elixir/Application.html
-  # for more information on OTP Applications
   @moduledoc false
 
   use Application
@@ -8,14 +6,12 @@ defmodule StatsD.Application do
   def start(_type, _args) do
     import Supervisor.Spec, warn: false
 
-    # Define workers and child supervisors to be supervised
+    {host, port} = Application.get_env(:statsd, :socket)
+
     children = [
-      # Starts a worker by calling: StatsD.Worker.start_link(arg1, arg2, arg3)
-      # worker(StatsD.Worker, [arg1, arg2, arg3]),
+      worker(StatsD.Server, [host, port])
     ]
 
-    # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
-    # for other strategies and supported options
     opts = [strategy: :one_for_one, name: StatsD.Supervisor]
     Supervisor.start_link(children, opts)
   end

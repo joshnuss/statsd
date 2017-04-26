@@ -3,16 +3,6 @@ defmodule StatsD do
   Documentation for StatsD.
   """
 
-  @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> StatsD.hello
-      :world
-
-  """
-  def hello do
-    :world
-  end
+  def record(packet),
+    do: send(:buffer, {:record, packet})
 end
