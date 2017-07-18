@@ -43,7 +43,11 @@ be found at [https://hexdocs.pm/statsd](https://hexdocs.pm/statsd).
 In a single node environment:
 
 ```shell
+# single port
 statsd localhost:2000
+
+# multiple ports
+statsd localhost:2000 localhost:2001
 ```
 
 In a multi-node environment:
