@@ -2,4 +2,8 @@
 # and its dependencies with the aid of the Mix.Config module.
 use Mix.Config
 
-config :statsd, socket: {"localhost", 2000}
+config :statsd, socket: [
+  {"localhost", 2000},
+  {"localhost", 2001},
+  {"localhost", 2002}
+]
