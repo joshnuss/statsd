@@ -7,10 +7,20 @@ defmodule BufferTest do
     {:ok, %{buffer: buffer}}
   end
 
-  test "records packets" do
+  test "recording" do
     Buffer.record(:first)
     Buffer.record(:second)
 
     assert :sys.get_state(:buffer) == [:second, :first]
+  end
+
+  test "clearing" do
+    Buffer.record(:first)
+    Buffer.record(:second)
+
+    previous = Buffer.clear()
+
+    assert previous == [:second, :first]
+    assert :sys.get_state(:buffer) == []
   end
 end
