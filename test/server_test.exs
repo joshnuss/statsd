@@ -15,6 +15,6 @@ defmodule ServerTest do
 
     :gen_udp.send(socket, host, port, "a packet")
 
-    assert_receive {:record, "a packet"}
+    assert_receive {:"$gen_cast", {:record, "a packet"}}
   end
 end

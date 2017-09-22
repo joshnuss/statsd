@@ -3,6 +3,5 @@ defmodule StatsD do
   Documentation for StatsD.
   """
 
-  def record(packet),
-    do: send(:buffer, {:record, packet})
+  defdelegate record(packet), to: StatsD.Buffer
 end

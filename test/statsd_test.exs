@@ -7,6 +7,6 @@ defmodule StatsDTest do
 
     StatsD.record("a stat")
 
-    assert_receive {:record, "a stat"}
+    assert_receive {:"$gen_cast", {:record, "a stat"}}
   end
 end
