@@ -6,7 +6,7 @@ defmodule StatsD.Application do
 
   def start(_type, _args) do
     opts = [strategy: :one_for_one, name: StatsD.Supervisor]
-    children = listeners() ++ buffers()
+    children = [buffer() | listeners()]
 
     Supervisor.start_link(children, opts)
   end
@@ -17,8 +17,8 @@ defmodule StatsD.Application do
     |> Enum.map(&listener/1)
   end
 
-  defp buffers do
-    [worker(StatsD.Buffer, [])]
+  defp buffer do
+    worker(StatsD.Buffer, [])
   end
 
   defp listener({host, port}) do
