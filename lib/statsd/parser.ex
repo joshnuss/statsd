@@ -4,23 +4,23 @@ defmodule StatsD.Parser do
   end
 
   def parse(text) do
-    parts = String.split(text, "|")
-    type = List.last(parts)
+    try do
+      [bucket, rest] = String.split(text, ":")
+      parts = String.split(rest, "|")
+      type = List.last(parts)
 
-    do_parse(type, Enum.drop(parts, -1))
+      do_parse(type, bucket, Enum.drop(parts, -1))
+    rescue
+      _ -> raise Error, "Failed to parse `#{text}`"
+    end
   end
 
-  defp do_parse("c", [value]),
-    do: {:counter, String.to_integer(value)}
+  defp do_parse("c", bucket, [value]),
+    do: {:counter, bucket, String.to_integer(value)}
 
-  defp do_parse("g", [value]),
-    do: {:guage, String.to_integer(value)}
+  defp do_parse("g", bucket, [value]),
+    do: {:guage, bucket, String.to_integer(value)}
 
-  defp do_parse("s", [value]),
-    do: {:set, String.to_integer(value)}
-
-  defp do_parse(type, parts) do
-    input = Enum.join(parts ++ [type], "|")
-    raise Error, "Failed to parse `#{input}`"
-  end
+  defp do_parse("s", bucket, [value]),
+    do: {:set, bucket, String.to_integer(value)}
 end

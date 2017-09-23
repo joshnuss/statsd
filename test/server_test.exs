@@ -13,8 +13,8 @@ defmodule ServerTest do
     {:ok, _server} = StatsD.Server.start_link(host, port)
     {:ok, socket} = :gen_udp.open(0, [:binary])
 
-    :gen_udp.send(socket, host, port, "99|c")
+    :gen_udp.send(socket, host, port, "f16.speed:899|g")
 
-    assert_receive {:"$gen_cast", {:record, {:counter, 99}}}
+    assert_receive {:"$gen_cast", {:record, {:guage, "f16.speed", 899}}}
   end
 end
