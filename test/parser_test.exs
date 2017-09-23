@@ -4,6 +4,7 @@ defmodule ParserTest do
 
   test "parses counter" do
     assert {:counter, 1} == Parser.parse("1|c")
+    assert {:counter, 99} == Parser.parse("99|c")
   end
 
   test "raises when invalid" do
