@@ -11,6 +11,15 @@ It has three major components:
 
 ## Features
 
+### Multiple metrics
+
+Supports counters, guages, timers & sets.
+
+### Streaming
+
+Scalar data is streamed into the system via UDP packets.
+Aggregate data is streamed out via a WebSocket.
+
 ### Fault tolerant
 
 The measuring, aggregation and storage engines are self-healing. If an unexpected error occurrs, they will stay up.
