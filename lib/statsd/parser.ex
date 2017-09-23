@@ -23,4 +23,7 @@ defmodule StatsD.Parser do
 
   defp do_parse("s", bucket, [value]),
     do: {:set, bucket, String.to_integer(value)}
+
+  defp do_parse("ms", bucket, [value]),
+    do: {:timing, bucket, String.to_integer(value)}
 end

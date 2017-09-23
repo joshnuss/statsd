@@ -17,6 +17,11 @@ defmodule ParserTest do
     assert {:set, "bucket", 99} == Parser.parse("bucket:99|s")
   end
 
+  test "timings" do
+    assert {:timing, "bucket", 1} == Parser.parse("bucket:1|ms")
+    assert {:timing, "bucket", 99} == Parser.parse("bucket:99|ms")
+  end
+
   test "raises when invalid" do
     assert_raise Parser.Error, "Failed to parse `wha?`", fn ->
       Parser.parse("wha?")
