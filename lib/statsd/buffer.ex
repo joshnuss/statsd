@@ -6,14 +6,14 @@ defmodule StatsD.Buffer do
   def start_link,
     do: GenServer.start_link(__MODULE__, [], name: @name)
 
-  def handle_cast({:record, packet}, packets),
-    do: {:noreply, [packet|packets]}
+  def handle_cast({:record, stat}, stats),
+    do: {:noreply, [stat|stats]}
 
-  def handle_call(:clear, _from, packets),
-    do: {:reply, packets, []}
+  def handle_call(:clear, _from, stats),
+    do: {:reply, stats, []}
 
-  def record(packet),
-    do: GenServer.cast(@name, {:record, packet})
+  def record(stat),
+    do: GenServer.cast(@name, {:record, stat})
 
   def clear,
     do: GenServer.call(@name, :clear)
