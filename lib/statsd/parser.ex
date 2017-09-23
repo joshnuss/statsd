@@ -15,6 +15,6 @@ defmodule StatsD.Parser do
 
   defp do_parse(type, parts) do
     input = Enum.join(parts ++ [type], "|")
-    raise Error, "invalid input `#{input}`"
+    raise Error, "Failed to parse `#{input}`"
   end
 end
