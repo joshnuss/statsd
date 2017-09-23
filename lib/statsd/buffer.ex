@@ -9,12 +9,12 @@ defmodule StatsD.Buffer do
   def handle_cast({:record, stat}, stats),
     do: {:noreply, [stat|stats]}
 
-  def handle_call(:clear, _from, stats),
+  def handle_call(:flush, _from, stats),
     do: {:reply, stats, []}
 
   def record(stat),
     do: GenServer.cast(@name, {:record, stat})
 
-  def clear,
-    do: GenServer.call(@name, :clear)
+  def flush,
+    do: GenServer.call(@name, :flush)
 end

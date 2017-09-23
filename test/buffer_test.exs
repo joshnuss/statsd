@@ -14,11 +14,11 @@ defmodule BufferTest do
     assert :sys.get_state(:buffer) == [:second, :first]
   end
 
-  test "clearing" do
+  test "flushing" do
     Buffer.record(:first)
     Buffer.record(:second)
 
-    previous = Buffer.clear()
+    previous = Buffer.flush()
 
     assert previous == [:second, :first]
     assert :sys.get_state(:buffer) == []
