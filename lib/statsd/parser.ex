@@ -10,11 +10,14 @@ defmodule StatsD.Parser do
     do_parse(type, Enum.drop(parts, -1))
   end
 
-  defp do_parse("c", [count]),
-    do: {:counter, String.to_integer(count)}
+  defp do_parse("c", [value]),
+    do: {:counter, String.to_integer(value)}
 
-  defp do_parse("g", [count]),
-    do: {:guage, String.to_integer(count)}
+  defp do_parse("g", [value]),
+    do: {:guage, String.to_integer(value)}
+
+  defp do_parse("s", [value]),
+    do: {:set, String.to_integer(value)}
 
   defp do_parse(type, parts) do
     input = Enum.join(parts ++ [type], "|")

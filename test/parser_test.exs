@@ -12,6 +12,11 @@ defmodule ParserTest do
     assert {:guage, 99} == Parser.parse("99|g")
   end
 
+  test "sets" do
+    assert {:set, 1} == Parser.parse("1|s")
+    assert {:set, 99} == Parser.parse("99|s")
+  end
+
   test "raises when invalid" do
     assert_raise Parser.Error, "Failed to parse `wha?`", fn ->
       Parser.parse("wha?")
