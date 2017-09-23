@@ -13,6 +13,9 @@ defmodule StatsD.Parser do
   defp do_parse("c", [count]),
     do: {:counter, String.to_integer(count)}
 
+  defp do_parse("g", [count]),
+    do: {:guage, String.to_integer(count)}
+
   defp do_parse(type, parts) do
     input = Enum.join(parts ++ [type], "|")
     raise Error, "Failed to parse `#{input}`"
