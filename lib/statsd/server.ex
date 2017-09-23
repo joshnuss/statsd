@@ -13,7 +13,9 @@ defmodule StatsD.Server do
   end
 
   def handle_info({:udp, socket, _address, _port, packet}, socket) do
-    StatsD.record(packet)
+    packet
+    |> StatsD.Parser.parse()
+    |> StatsD.record()
 
     {:noreply, socket}
   end
