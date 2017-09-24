@@ -1,5 +1,6 @@
 defmodule StatsD.Stat do
   defstruct type: :counter,
     bucket: nil,
-    value: 0
+    value: 0,
+    rate: 1
 end
