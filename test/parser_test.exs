@@ -3,24 +3,24 @@ defmodule ParserTest do
   alias StatsD.{Parser, Stat}
 
   test "counters" do
-    assert %Stat{type: :counter, bucket: "bucket", value: 1, rate: 1} == Parser.parse("bucket:1|c")
-    assert %Stat{type: :counter, bucket: "bucket", value: 99, rate: 1} == Parser.parse("bucket:99|c")
-    assert %Stat{type: :counter, bucket: "bucket", value: 99, rate: 0.1} == Parser.parse("bucket:99|c|@0.1")
+    assert %Stat{type: :counter, bucket: "bucket", value: 1, rate: 1, op: :replace} == Parser.parse("bucket:1|c")
+    assert %Stat{type: :counter, bucket: "bucket", value: 99, rate: 1, op: :replace} == Parser.parse("bucket:99|c")
+    assert %Stat{type: :counter, bucket: "bucket", value: 99, rate: 0.1, op: :replace} == Parser.parse("bucket:99|c|@0.1")
   end
 
   test "guages" do
-    assert %Stat{type: :guage, bucket: "bucket", value: 1, rate: 1} == Parser.parse("bucket:1|g")
-    assert %Stat{type: :guage, bucket: "bucket", value: 99, rate: 1} == Parser.parse("bucket:99|g")
+    assert %Stat{type: :guage, bucket: "bucket", value: 1, rate: 1, op: :replace} == Parser.parse("bucket:1|g")
+    assert %Stat{type: :guage, bucket: "bucket", value: 99, rate: 1, op: :replace} == Parser.parse("bucket:99|g")
   end
 
   test "sets" do
-    assert %Stat{type: :set, bucket: "bucket", value: 1, rate: 1} == Parser.parse("bucket:1|s")
-    assert %Stat{type: :set, bucket: "bucket", value: 99, rate: 1} == Parser.parse("bucket:99|s")
+    assert %Stat{type: :set, bucket: "bucket", value: 1, rate: 1, op: :replace} == Parser.parse("bucket:1|s")
+    assert %Stat{type: :set, bucket: "bucket", value: 99, rate: 1, op: :replace} == Parser.parse("bucket:99|s")
   end
 
   test "timers" do
-    assert %Stat{type: :timer, bucket: "bucket", value: 1, rate: 1} == Parser.parse("bucket:1|ms")
-    assert %Stat{type: :timer, bucket: "bucket", value: 99, rate: 1} == Parser.parse("bucket:99|ms")
+    assert %Stat{type: :timer, bucket: "bucket", value: 1, rate: 1, op: :replace} == Parser.parse("bucket:1|ms")
+    assert %Stat{type: :timer, bucket: "bucket", value: 99, rate: 1, op: :replace} == Parser.parse("bucket:99|ms")
   end
 
   test "raises when invalid" do
