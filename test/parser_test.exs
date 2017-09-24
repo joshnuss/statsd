@@ -1,25 +1,25 @@
 defmodule ParserTest do
   use ExUnit.Case
-  alias StatsD.Parser
+  alias StatsD.{Parser, Stat}
 
   test "counters" do
-    assert {:counter, "bucket", 1} == Parser.parse("bucket:1|c")
-    assert {:counter, "bucket", 99} == Parser.parse("bucket:99|c")
+    assert %Stat{type: :counter, bucket: "bucket", value: 1} == Parser.parse("bucket:1|c")
+    assert %Stat{type: :counter, bucket: "bucket", value: 99} == Parser.parse("bucket:99|c")
   end
 
   test "guages" do
-    assert {:guage, "bucket", 1} == Parser.parse("bucket:1|g")
-    assert {:guage, "bucket", 99} == Parser.parse("bucket:99|g")
+    assert %Stat{type: :guage, bucket: "bucket", value: 1} == Parser.parse("bucket:1|g")
+    assert %Stat{type: :guage, bucket: "bucket", value: 99} == Parser.parse("bucket:99|g")
   end
 
   test "sets" do
-    assert {:set, "bucket", 1} == Parser.parse("bucket:1|s")
-    assert {:set, "bucket", 99} == Parser.parse("bucket:99|s")
+    assert %Stat{type: :set, bucket: "bucket", value: 1} == Parser.parse("bucket:1|s")
+    assert %Stat{type: :set, bucket: "bucket", value: 99} == Parser.parse("bucket:99|s")
   end
 
   test "timings" do
-    assert {:timing, "bucket", 1} == Parser.parse("bucket:1|ms")
-    assert {:timing, "bucket", 99} == Parser.parse("bucket:99|ms")
+    assert %Stat{type: :timing, bucket: "bucket", value: 1} == Parser.parse("bucket:1|ms")
+    assert %Stat{type: :timing, bucket: "bucket", value: 99} == Parser.parse("bucket:99|ms")
   end
 
   test "raises when invalid" do
