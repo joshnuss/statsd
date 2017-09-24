@@ -62,12 +62,16 @@ statsd localhost:2000 localhost:2001
 In a multi-node environment:
 
 ```shell
-# Boot 2 collectors, and one storage/aggregator on cluster "universe"
+# Boot 2 collectors, and one storage+aggregator on cluster "universe"
 ssh mars "statsd 2000 --collector --cluster=universe" &
 ssh mercury "statsd 2000 --collector --cluster=universe" &
 ssh venus "statsd --storage --aggregator --cluster=universe" &
 
 # Send metrics over UDP
-echo "Customer.created:1|2ms" | netcat -u mars 2000
-echo "Customer.created:2|4ms" | netcat -u mercury 2000
+
+## Set speed guage to 10000 light years
+echo "spaceship.speed:10000|g" | netcat -u mars 2000
+
+## Increment speed guage by 200
+echo "spaceship.speed:+200|g" | netcat -u mercury 2000
 ```
