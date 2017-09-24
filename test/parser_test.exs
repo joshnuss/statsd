@@ -11,6 +11,8 @@ defmodule ParserTest do
   test "guages" do
     assert %Stat{type: :guage, bucket: "bucket", value: 1, rate: 1, op: :replace} == Parser.parse("bucket:1|g")
     assert %Stat{type: :guage, bucket: "bucket", value: 99, rate: 1, op: :replace} == Parser.parse("bucket:99|g")
+    assert %Stat{type: :guage, bucket: "bucket", value: 1, rate: 1, op: :increment} == Parser.parse("bucket:+1|g")
+    assert %Stat{type: :guage, bucket: "bucket", value: 1, rate: 1, op: :decrement} == Parser.parse("bucket:-1|g")
   end
 
   test "sets" do
