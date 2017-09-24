@@ -25,17 +25,16 @@ defmodule StatsD.Parser do
 
   defp parse_parts([key, type, rate]) do
     [bucket, value_string] = String.split(key, ":")
-    [rate_string] = String.split(rate, "@", trim: true)
-    {rate_value, _} = Float.parse(rate_string)
+    [rate] = String.split(rate, "@", trim: true)
 
-    {op, value} = format_value(value_string)
+    {operation, value} = format_value(value_string)
 
     %StatsD.Stat{
       type: @types[type],
       bucket: bucket,
+      operation: operation,
       value: value,
-      op: op,
-      rate: rate_value}
+      rate: format_rate(rate)}
   end
 
   defp format_value("+" <> value),
@@ -46,4 +45,9 @@ defmodule StatsD.Parser do
 
   defp format_value(value),
     do: {:replace, String.to_integer(value)}
+
+  defp format_rate(text) do
+    {rate, _} = Float.parse(text)
+    rate
+  end
 end

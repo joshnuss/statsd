@@ -3,5 +3,5 @@ defmodule StatsD.Stat do
     bucket: nil,
     value: 0,
     rate: 1,
-    op: :replace
+    operation: :replace
 end
