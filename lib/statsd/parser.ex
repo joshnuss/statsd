@@ -25,13 +25,14 @@ defmodule StatsD.Parser do
 
   defp parse_parts([key, type, rate]) do
     [bucket, value_string] = String.split(key, ":")
-    {operation, value} = format_value(value_string)
+    {operation, number_text} = format_value(value_string)
+    {value, _} = Float.parse(number_text)
 
     %StatsD.Stat{
       type: @types[type],
       bucket: bucket,
       operation: operation,
-      value: String.to_integer(value),
+      value: value,
       rate: format_rate(rate)}
   end
 
