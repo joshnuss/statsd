@@ -7,7 +7,7 @@ defmodule StatsD.Parser do
     "c" => :counter,
     "g" => :guage,
     "s" => :set,
-    "ms" => :timing
+    "ms" => :timer
   }
 
   def parse(text) do

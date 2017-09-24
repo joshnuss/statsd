@@ -18,9 +18,9 @@ defmodule ParserTest do
     assert %Stat{type: :set, bucket: "bucket", value: 99, rate: 1} == Parser.parse("bucket:99|s")
   end
 
-  test "timings" do
-    assert %Stat{type: :timing, bucket: "bucket", value: 1, rate: 1} == Parser.parse("bucket:1|ms")
-    assert %Stat{type: :timing, bucket: "bucket", value: 99, rate: 1} == Parser.parse("bucket:99|ms")
+  test "timers" do
+    assert %Stat{type: :timer, bucket: "bucket", value: 1, rate: 1} == Parser.parse("bucket:1|ms")
+    assert %Stat{type: :timer, bucket: "bucket", value: 99, rate: 1} == Parser.parse("bucket:99|ms")
   end
 
   test "raises when invalid" do
