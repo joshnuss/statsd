@@ -25,29 +25,28 @@ defmodule StatsD.Parser do
 
   defp parse_parts([key, type, rate]) do
     [bucket, value_string] = String.split(key, ":")
-    [rate] = String.split(rate, "@", trim: true)
-
     {operation, value} = format_value(value_string)
 
     %StatsD.Stat{
       type: @types[type],
       bucket: bucket,
       operation: operation,
-      value: value,
+      value: String.to_integer(value),
       rate: format_rate(rate)}
   end
 
   defp format_value("+" <> value),
-    do: {:increment, String.to_integer(value)}
+    do: {:increment, value}
 
   defp format_value("-" <> value),
-    do: {:decrement, String.to_integer(value)}
+    do: {:decrement, value}
 
   defp format_value(value),
-    do: {:replace, String.to_integer(value)}
+    do: {:replace, value}
 
   defp format_rate(text) do
-    {rate, _} = Float.parse(text)
+    [rate_string] = String.split(text, "@", trim: true)
+    {rate, _} = Float.parse(rate_string)
     rate
   end
 end
