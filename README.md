@@ -6,14 +6,14 @@ A fault tolerant and concurrent metric tracker.
 It has three major components:
 
 - `collector` receives UDP packets and buffers them in memory
-- `aggregator` flushes the buffer periodically and computes measurements
-- `storage` persists the measurements
+- `aggregator` flushes the buffer periodically and computes aggregate measurements
+- `storage` persists the measurements to a backend database
 
 ## Features
 
 ### Multiple metrics
 
-Supports counters, guages, timers & sets.
+Supports all StatsD metrics: counters, guages, timers & sets.
 
 ### Streaming
 
